@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IBBL_AP_CHEQUE_PRINT" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16c14998-15d6-4984-a890-61f3bec69bb8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<subDataset name="dataset1" uuid="27153a07-b496-4d08-97a5-d7be8d8a0b54"/>
+	<parameter name="CHEQUE_NO" class="java.lang.String"/>
+	<parameter name="CHEQUE_DATE" class="java.util.Date"/>
+	<parameter name="PROJECTS" class="java.lang.String"/>
+	<parameter name="TOTAL_AMOUNT" class="java.lang.String"/>
+	<parameter name="NOTES" class="java.lang.String"/>
+	<parameter name="CHEQUE_PAYEE" class="java.lang.String"/>
+	<parameter name="CHEQUE_AMOUNT_IN_WORDS" class="java.lang.String"/>
+	<parameter name="D1" class="java.lang.String"/>
+	<parameter name="D2" class="java.lang.String"/>
+	<parameter name="M2" class="java.lang.String"/>
+	<parameter name="Y1" class="java.lang.String"/>
+	<parameter name="Y2" class="java.lang.String"/>
+	<parameter name="Y3" class="java.lang.String"/>
+	<parameter name="Y4" class="java.lang.String"/>
+	<parameter name="MM1" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     *
+FROM
+     acc_bank_cheque LIMIT 1]]>
+	</queryString>
+	<field name="cheque_id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="account_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cheque_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cheque_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="expence_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="expence_mode" class="java.lang.String">
+		<fieldDescription><![CDATA[HO = honour, DO = Dishonour, D = Demaged, A = Available]]></fieldDescription>
+	</field>
+	<field name="cheque_amount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="created_by" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="created_at" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="500" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5e59e0b9-6ee1-44f1-9d2c-05d5e40f6286" x="663" y="264" width="20" height="40"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ =]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="a64a0241-d201-4533-bc84-d3f727aea30a" x="332" y="157" width="108" height="64"/>
+				<imageExpression><![CDATA["acp.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="2af76e63-53fc-40b7-b188-a100c241475a" x="68" y="157" width="105" height="64"/>
+				<imageExpression><![CDATA["acp.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="30b8b194-ec0b-4a92-bfe2-ec89ffa9ede1" x="658" y="196" width="19" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{D1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="72e84177-8b5f-485b-8fe3-733bd6513edf" x="677" y="196" width="19" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{D2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cbd66d7a-d259-473f-a922-2f3eeb82a9bb" x="715" y="196" width="19" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{M2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ac88b180-bcec-45f5-aa5f-b98e01ca3238" x="734" y="196" width="19" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Y1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ab3b207b-1812-4d03-99a4-491d2d7ead4c" x="753" y="196" width="19" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Y2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="58ff491b-e312-4b88-a2bd-1d8399aacaf0" x="772" y="196" width="19" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Y3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="90d91f23-685e-4cd9-b981-d3862e75f8af" x="791" y="196" width="19" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Y4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="8dce78ca-113d-4052-b790-26bfcea04583" x="683" y="264" width="119" height="40"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TOTAL_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f9511ed9-308a-4bbc-869b-09105ee99e53" x="335" y="233" width="430" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CHEQUE_PAYEE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="a671dcd1-6f61-498b-bc57-af51b6368ebe" x="378" y="264" width="267" height="40"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CHEQUE_AMOUNT_IN_WORDS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4a25325c-e14e-4993-a42d-89f4b6d5e4a3" x="68" y="242" width="105" height="31"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CHEQUE_PAYEE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3d310ee4-923c-4f93-a6a8-213fda5bf107" x="68" y="273" width="105" height="72"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PROJECTS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="57a134aa-685f-416f-b7d8-c14cab6ca691" x="68" y="345" width="105" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOTES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="514f17ca-ce7d-4edd-83dd-d5978220307c" x="696" y="196" width="19" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{MM1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8d3452cc-aadd-4d91-bcfb-fd3af93465f4" x="68" y="222" width="52" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CHEQUE_NO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy">
+				<reportElement uuid="5a6ef895-4118-4642-a6f6-3efd9df911be" x="120" y="222" width="53" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CHEQUE_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

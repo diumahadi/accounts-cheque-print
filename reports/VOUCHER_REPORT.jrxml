@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VOUCHER_REPORT" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c00f52f3-38b8-4561-b48e-65f15e70518a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="VOUCHER_NO" class="java.lang.String"/>
+	<parameter name="VOUCHER_TITLE" class="java.lang.String"/>
+	<parameter name="SHORT_CODE" class="java.lang.String"/>
+	<parameter name="VOUCHER_NARRATION" class="java.lang.String"/>
+	<parameter name="TAKA_IN_WORD" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT det.vd_sl_no,det.vd_ca_id,ca.ca_name,pro.project_name
+,det.vd_deptId,dept.department_name,det.vd_debit,det.vd_credit
+FROM acc_voucher_detail det
+JOIN project_infos pro ON pro.project_code=det.vd_project_code
+LEFT JOIN hrm_departments dept ON dept.department_id=det.vd_deptId
+JOIN acc_ca ca ON ca.ca_id=det.vd_ca_id
+WHERE det.vd_vno=$P{VOUCHER_NO}
+ORDER BY det.vd_sl_no]]>
+	</queryString>
+	<field name="vd_sl_no" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vd_ca_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ca_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="project_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vd_deptId" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="department_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vd_debit" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vd_credit" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalDebit" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{vd_debit}]]></variableExpression>
+	</variable>
+	<variable name="totalCredit" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{vd_credit}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image vAlign="Middle">
+				<reportElement uuid="d56b3510-656c-4f32-aa13-4043317371ce" x="4" y="0" width="238" height="70"/>
+				<imageExpression><![CDATA["suvastulogo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="07268f0a-203b-4b75-a1df-95d8cb6930c9" x="242" y="0" width="310" height="47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="25" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{VOUCHER_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4ae10a87-1d15-4720-bbed-44d008ef9850" x="242" y="47" width="310" height="22"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SHORT_CODE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="88bc1fac-4c99-4d71-99c3-0b92a4bf04aa" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="e0f13401-5784-46ba-82d8-4178eb4ed39b" style="Column header" x="4" y="19" width="80" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[A/C Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9f503fb7-b681-405b-a226-f139e17f2a4b" style="Column header" x="87" y="19" width="120" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Project]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="59171463-553d-4ebb-b99e-9a28bfca73d8" style="Column header" x="208" y="19" width="140" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Accounts Head ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="313d8c40-9b31-4ea0-8db4-fe55d4d3d36d" style="Column header" x="349" y="19" width="100" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Debit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f1fd655-b679-4129-9663-45d0a8c9fa6c" style="Column header" x="452" y="19" width="100" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Credit]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<line>
+				<reportElement uuid="3b6b8617-a727-408c-94b9-43f0df7cfcd9" positionType="FixRelativeToBottom" x="0" y="36" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="aea3f1b9-3a4a-4ed7-bc85-ee1789e65c37" style="Detail" x="4" y="0" width="80" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vd_ca_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="46bbe88e-4ca0-42c7-9c7c-6d6d4f5673b2" style="Detail" x="87" y="0" width="120" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{project_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="350a85db-47a5-4d8f-9596-910b17dd1847" style="Detail" x="87" y="17" width="120" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{department_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="73a61f04-07ff-4e91-8ecf-ff1b997b580a" style="Detail" x="452" y="0" width="100" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vd_credit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4a22093b-f1da-434d-b75c-a31f3abed709" style="Detail" x="208" y="0" width="140" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ca_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="7792e532-aa60-4d65-89fd-59f4266d4a8b" style="Detail" x="349" y="0" width="100" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vd_debit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="100">
+			<line>
+				<reportElement uuid="a6ade15c-497b-4936-b545-be26211576fe" x="5" y="29" width="100" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="ae2d9f90-c8cc-4514-b2e2-3ae33de8cd2b" x="5" y="30" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Prepared By]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f9feb54d-fbb1-4853-96cf-8803c2aeb5b8" x="449" y="29" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Approved By]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e62823c2-f770-4666-bd1c-4bbe2b135af4" x="449" y="28" width="100" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="cabc53ee-a4c8-44bd-b33b-09e9e3503e91" x="153" y="29" width="100" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="beca6131-e6a1-4ec0-894f-501b89c98aef" x="153" y="30" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Checked By]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dca48d50-ea65-4f61-9edb-9df4d1f70b77" x="301" y="29" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Checked By]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="372033c8-0998-477a-95b5-a5ae3f5a34bc" x="301" y="28" width="100" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="0f907a29-0d71-41b9-9784-1b265fba6b1b" x="5" y="69" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Received By : ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="6ea77e53-9cbc-43e9-a3d2-ecd66de19a69" x="108" y="62" width="145" height="33"/>
+			</rectangle>
+		</band>
+	</columnFooter>
+	<summary>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="548678e7-ed9e-41a2-8c4e-10c22d9a9b1c" style="Column header" x="208" y="2" width="140" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Total : ]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="702e3630-1b06-4a39-b321-04f41b378825" x="349" y="2" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalDebit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="a4f1fd7e-47a3-4666-b278-3256a3a44dc6" x="452" y="2" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCredit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="451b724e-e4d0-4922-a402-2cfc54fb3c62" x="5" y="29" width="127" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Narration : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d37b903-0eae-49b1-b49f-2b0cf3a4635b" x="5" y="51" width="127" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Taka in Words : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2e6973ac-463b-4958-9317-e136afdc22fd" x="132" y="51" width="417" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TAKA_IN_WORD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="86889fce-8570-4907-80a1-ac3719448726" x="132" y="29" width="417" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{VOUCHER_NARRATION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

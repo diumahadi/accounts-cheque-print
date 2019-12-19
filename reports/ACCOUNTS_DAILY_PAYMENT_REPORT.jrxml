@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ACCOUNTS_DAILY_PAYMENT_REPORT" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a750715d-7398-4223-b176-e039e370fffd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="PAID_DATE" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT CONCAT(chq.bi_short_name,'-',re.cheque_no) cheque_no,re.cheque_html,re.amount,re.print_date,DATE_FORMAT(re.check_date,'%d-%b-%Y') check_date
+, CASE re.bill_tp WHEN 'SUP' THEN 'Supplier' WHEN 'SUB' THEN 'Sub-Contractor' WHEN 'EMP' THEN 'Employee' WHEN 'EXT' THEN 'Externals' END AS 'paymentTP'
+FROM cheque_reprint re
+JOIN view_acc_bank_cheque chq ON chq.cheque_id=re.cheque_no_id
+WHERE re.print_date= $P{PAID_DATE}
+ORDER BY re.bill_tp DESC]]>
+	</queryString>
+	<field name="cheque_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cheque_html" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="print_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="check_date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paymentTP" class="java.lang.String">
+		<fieldDescription><![CDATA[I = Installment, B = Booking Charge, ID = Initial Deposite,IG=Interior Design, U = Utility, R = Registration, O = Others]]></fieldDescription>
+	</field>
+	<variable name="TOTAL_PAYMENT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+	</variable>
+	<group name="paymentTP">
+		<groupExpression><![CDATA[$F{paymentTP}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="feeac9d7-267e-4137-8da0-adc1e1817874" style="SubTitle" x="0" y="13" width="553" height="24" forecolor="#000000"/>
+					<textElement>
+						<font fontName="Times New Roman" size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{paymentTP}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image vAlign="Middle">
+				<reportElement uuid="09804ff3-13e3-47cf-8852-027e2e2855e8" x="0" y="0" width="238" height="70"/>
+				<imageExpression><![CDATA["suvastulogo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="73758bd9-3090-475b-aa50-94f5086a31de" style="SubTitle" x="238" y="22" width="315" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daily Payment Report]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="eca74602-e69a-4b07-aa90-1b5055b42852" x="238" y="44" width="315" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PAID_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="faa6ca40-4e7c-4c0c-8ecb-d6e952a7e38c" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="d5739ebe-1af7-4a58-8423-e223982ebadb" style="Column header" x="0" y="15" width="110" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Cheque No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="06b813b8-b9bd-4284-9607-21350bdac744" style="Column header" x="111" y="15" width="222" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8ea1378e-b9fc-4050-95ee-ffeb704a4f42" style="Column header" x="442" y="15" width="111" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Cheque Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="006bef8a-f54f-4d6c-9753-e6668278e8dd" style="Column header" x="334" y="15" width="111" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Cheque Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement uuid="f1390cc8-6858-4cfe-afef-dfb9c03dada0" positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="97c9b6be-58e2-43f2-816c-e0820fd5fb17" style="Detail" x="0" y="0" width="110" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="923461e3-14e0-40bf-9290-5ce9b46eacba" style="Detail" x="111" y="0" width="222" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_html}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="cb4747f1-e14e-4864-b3c5-98508dd3e257" style="Detail" x="442" y="0" width="111" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy">
+				<reportElement uuid="bef599cc-891c-4746-82e4-dd62f8f17e7b" style="Detail" x="333" y="0" width="111" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{check_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="774a8fe7-8b45-417d-be92-5ff62e7252d7" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="c8916b7d-8546-4c86-8f56-8af67bd59a10" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="368d129c-f736-446e-aab3-5aa83faaead2" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="6d34d563-6cc7-414b-8fe0-bf617f6b6d4d" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="40" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="e6c126c6-0547-4893-a3ba-2cf9170e65e0" x="445" y="0" width="108" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_PAYMENT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="371bffbc-506f-47d8-8db1-0111a4142133" style="Column header" x="334" y="0" width="110" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Total Paid : ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
